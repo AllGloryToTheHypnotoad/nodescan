@@ -15,6 +15,22 @@
 
 ## Usage
 
+## Setup
+
+For RPi, install this in `/etc/systemd/system/`.
+
+    [Service]
+    ExecStart=/usr/local/bin/archeyjs
+    Restart=always
+    StandardOutput=syslog
+    StandardError=syslog
+    SyslogIdentifier=archeyjs
+    User=pi
+    Group=pi
+    Environment=NODE_ENV=production
+
+    [Install]
+    WantedBy=multi-user.target
 
 
 ## Change Log 
@@ -22,3 +38,6 @@
 | Version | Date     | Comments |
 |---------|----------|----------|
 | 0.1.0   | 1 Jan 16 | Initial commit |
+
+
+
