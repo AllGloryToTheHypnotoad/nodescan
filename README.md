@@ -22,11 +22,11 @@
 For RPi, install this in `/etc/systemd/system/`.
 
     [Service]
-    ExecStart=/usr/local/bin/archeyjs
+    ExecStart=/usr/local/bin/nodescan
     Restart=always
     StandardOutput=syslog
     StandardError=syslog
-    SyslogIdentifier=archeyjs
+    SyslogIdentifier=nodescan
     User=pi
     Group=pi
     Environment=NODE_ENV=production
