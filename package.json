@@ -1,0 +1,33 @@
+{
+  "name": "nodescan",
+  "version": "0.1.0",
+  "description": "Local network scanner",
+  "main": "bin/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "debug": "sudo DEBUG=* ./bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walchko/nodescan.git"
+  },
+  "keywords": [
+    "arp-scan",
+    "network",
+    "scanner",
+    "nmap",
+    "mapper"
+  ],
+  "author": "Kevin J. Walchko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/walchko/nodescan/issues"
+  },
+  "homepage": "https://github.com/walchko/nodescan#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "debug": "^2.2.0",
+    "http": "0.0.0",
+    "request": "^2.67.0"
+  }
+}
