@@ -9,8 +9,14 @@
 
 **still in development**
 
+## Install
+
+    npm install -g
+
 ## Usage
 
 
 
 ## Change Log 
+
+0.1.0 1 Jan 16 Initial commit
