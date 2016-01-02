@@ -38,7 +38,7 @@ var http = require('http');                // http-server
 var spawn = require('child_process');
 
 var page = require('../lib/page.js');   // 
-var arpscan = require('../lib/scan.js');   // 
+var arpscan = require('../lib/arpscan.js');   // 
 var nmap = require('../lib/nmap.js');   // 
 
 // grab info from npm package
@@ -50,7 +50,7 @@ program
 	.usage(pck.name + ' [options]')
 	.option('-p, --port <port>','Http server port number, default: 8080',parseInt,8080)
 // 	.option('-r, --no-static','Do real-time webpage updates')
-	.option('-u, --update [seconds]','update time for arp-scan, default: 60 sec', parseInt, 500)
+	.option('-u, --update [seconds]','update time for arp-scan, default: 60 sec', parseInt, 5)
 	.option('-d, --dev [interface]','network interface to use for scan, default: en1', 'en1')
 	.parse(process.argv);
 
