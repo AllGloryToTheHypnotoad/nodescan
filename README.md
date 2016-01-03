@@ -8,6 +8,11 @@
 
 [![NPM](https://nodei.co/npm/nodescan.png)](https://nodei.co/npm/nodescan/)
 
+I have a lot of things on my network and I don't even know what they are half the time. 
+This is an alternative to `fing` which is pretty good, but you need to buy a license to 
+get full control.
+
+The main purpose of this is network recon to find and identify hosts.
 
 ![](pics/window.png)
 
