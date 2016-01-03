@@ -37,9 +37,9 @@ var os = require('os');                    // OS access
 var http = require('http');                // http-server
 var spawn = require('child_process');
 
-var page = require('../lib/page.js');   // 
-var arpscan = require('../lib/arpscan.js');   // 
-var nmap = require('../lib/nmap.js');   // 
+var page = require('../lib/page.js');         // render a webpage 
+var arpscan = require('../lib/arpscan.js');   // perform the arp scan
+var db = require('../lib/database.js').DataBase; // data base 
 
 // grab info from npm package
 var pck = require('../package.json');
@@ -49,44 +49,23 @@ program
 	.description(pck.description)
 	.usage(pck.name + ' [options]')
 	.option('-p, --port <port>','Http server port number, default: 8080',parseInt,8080)
-// 	.option('-r, --no-static','Do real-time webpage updates')
 	.option('-u, --update [seconds]','update time for arp-scan, default: 60 sec', parseInt, 5)
 	.option('-d, --dev [interface]','network interface to use for scan, default: en1', 'en1')
 	.parse(process.argv);
 
 debug('Starting netscan on interface: '+program.dev+' every '+program.update);	
-// debug('argv: '+process.argv);
-// debug('!rt: '+ program.static);
-// debug('rt: ' + (program.realtime ? true : false) );
-// debug('test: '+ program.test);
-// debug('archeyjs ready on port: '+ program.port);
 
 var options = {'dev': program.dev};
 var scan = [];
-var db = {};
-
-var request = require('request');
-
-// get vendor name from mac addr, arp-scan/nmap don't always get the correct thing
-// or anything at all
-function getMAC(mac, cb){
-// 	var ret = '';
-	request('http://www.macvendorlookup.com/api/v2/'+mac, function (error, response, body) {
-	  if (!error && response.statusCode == 200) {
-// 		console.log(JSON.parse(body)[0]['company'])  
-		ret = JSON.parse(body)[0]['company'];
-	  }
-	  else ret = 'unknown';
-	  console.log('getMac: '+ret);
-	  cb(ret);
-	});
-}
 
 
-var opts = {};
-var ans = [];
-
-nmap(opts,ans);
+// var ans = [];
+// 
+// for (var i=1; i<15; i++){
+// 	nmap({ports:'1-3000', host: '192.168.1.'+i}).then(function(response){
+// 		debug( response );
+// 	});
+// }
 
 /*
 Iterate through scan and add new mac addresses into db dictionary
@@ -111,72 +90,19 @@ Flow:
 5. iterate through db and scan host for open tcp/udp ports 
 
 */
-function cleanDB(db,scan){
-	// clear status flag
-	Object.keys(db).forEach(function(key){
-		db[key].status='down';
-	});
-	
-	while(scan.length > 0){
-		var host = scan.pop();
-		if( host['mac'] in db ) host['mac'].status = 'up';
-		else {
-// 			db[ host['mac'] ] = {'ip': host['ip'], 'vendor': host['vendor']};
-			db[ host['mac'] ] = {'ip': host['ip'], 'vendor': '', 'hostname': '', 'timestamp': new Date(), 'mac': host['mac'], 'status':'up', 'tcp': {}, 'udp': {}};
-		}
-	}
-// 	Object.keys(db).forEach(getMAC(key,function(vendor){db[key]['vendor']=vendor;}));
-	Object.keys(db).forEach(function(key){
-		
-		// only search if vendor is empty
-		if(db[key].vendor === ''){
-			request('http://www.macvendorlookup.com/api/v2/'+key, function (error, response, body) {
-			  if (!error && response.statusCode == 200) { 
-				ret = JSON.parse(body)[0]['company'];
-			  }
-			  else ret = 'unknown';
-			  console.log('getMac: '+ret);
-			  db[key]['vendor']=ret;
-			});
-		}
-	});
-	
-	// use avahi tools to determine host name
-	if(os.type().toLowerCase() === 'linux'){
-		Object.keys(db).forEach(function(key){
-			if(db[key].hostname === ''){
-				spawn.exec('avahi-resolve-address ' + db[key].ip +" | awk '{print $2}'", function (err, stdout, stderr){
-					if(!err) db[key].hostname = stdout;
-				});
-			}
-		});
-	}
-	// dig +short -x 192.168.1.3 -p 5353 @224.0.0.251
-	else if(os.type().toLowerCase() === 'darwin'){
-		Object.keys(db).forEach(function(key){
-			if(db[key].hostname === ''){
-				spawn.exec('dig +short -x ' + db[key].ip +" -p 5353 @224.0.0.251", function (err, stdout, stderr){
-					if(!err) db[key].hostname = stdout;
-				});
-			}
-		});
-	}
-}
+
 // why don't these work??
 // this seems to miss localhost
-arpscan(options, scan);
-cleanDB(db,scan);
+arpscan(options).then(function(response){scan = response;});
+db.update(scan);
 
 setInterval(function(){
-	debug('arp-scan ... now');
+	debug('network scan start ...');
 	// spawn - streams output
 	// exec - buffers output, buffer size limited
-	arpscan(options, scan);
-	debug(scan);
-// 	debug('scan len= '+scan.length);
-	cleanDB(db,scan);
-// 	debug('scan len2= '+scan.length);
-// 	debug( db );
+	arpscan(options).then(function(response){scan = response;});
+	debug('Arpscan done: '+scan.length+' hosts found');
+	db.update( scan ); // pops hosts off scan, so it is 0
 }, program.update*1000);
 
 
@@ -189,7 +115,7 @@ var server = http.createServer(function(req, res){
 	if ( path == '/' ){
 		if (req.method == 'GET') {
 			res.writeHead(200,{'Content-Type': 'text/html'});
-			res.write(page(db));
+			res.write(page(db.getSortedList()));
 			res.end();
 		}
 		else if (req.method == 'PUT') {
