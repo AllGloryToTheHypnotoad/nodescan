@@ -9,7 +9,7 @@
 [![NPM](https://nodei.co/npm/nodescan.png)](https://nodei.co/npm/nodescan/)
 
 
-**still in development**
+![](pics/window.png)
 
 ## Install
 
@@ -17,9 +17,24 @@
 
 ## Usage
 
+    [kevin@Tardis nodescan]$ node bin/server.js --help
+
+      Usage: server nodescan [options]
+
+      Local network scanner
+
+      Options:
+
+        -h, --help              output usage information
+        -V, --version           output the version number
+        -p, --port <port>       Http server port number, default: 8080
+        -u, --update [seconds]  update time for arp-scan, default: 60 sec
+        -d, --dev [interface]   network interface to use for scan, default: en1
+
+
 ## Setup
 
-For RPi, install this in `/etc/systemd/system/`.
+For RPi, install this in `/etc/systemd/system/`, this will ensure it runs at start up.
 
     [Service]
     ExecStart=/usr/local/bin/nodescan
@@ -35,10 +50,21 @@ For RPi, install this in `/etc/systemd/system/`.
     WantedBy=multi-user.target
 
 
+## To Do
+
+* Scan hosts for open ports (easy) and figure out a smart way to put that on the web page (harder)
+* Include localhost info
+* Save/recover network database from file
+* Do I need to show the mac addr? Is there a better way to do that?
+* Maybe put a json interface?
+* Turn on/off web interface, then just use json to get info?
+* Add tests
+
 ## Change Log 
 
 | Version | Date     | Comments |
 |---------|----------|----------|
+| 0.2.0   | 3 Jan 16 | Clean-up and fixes |
 | 0.1.0   | 1 Jan 16 | Initial commit |
 
 
