@@ -30,7 +30,7 @@ pi@hypnotoad ~ $ avahi-resolve-address 192.168.1.1
 
 */
 
-var debug = require('debug')('kevin:mon'); // debugging
+var debug = require('debug')('kevin:main'); // debugging
 //var chalk = require('chalk');            // colors
 var program = require('commander');        // CLI access
 var os = require('os');                    // OS access
@@ -90,6 +90,23 @@ Flow:
 5. iterate through db and scan host for open tcp/udp ports 
 
 */
+
+// arp-scan and nmap don't get localhost info
+var localhostInfo = {};
+// get local info
+var ifaces = os.networkInterfaces();
+for(var i in ifaces){
+	var eth = ifaces[i];
+	for(var info in eth){
+		var dev = eth[info];
+		if(dev.family === 'IPv4' && dev.internal === false)
+			localhostInfo.ipv4 = {ip: dev.address, mac: dev.mac};
+		if(dev.family === 'IPv6' && dev.internal === false)
+			localhostInfo.ipv6 = {ip: dev.address, mac: dev.mac};
+	}
+}
+
+console.log( localhostInfo );
 
 // why don't these work??
 // this seems to miss localhost
