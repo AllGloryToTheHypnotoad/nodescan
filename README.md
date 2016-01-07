@@ -20,6 +20,14 @@ The main purpose of this is network recon to find and identify hosts.
 
     npm install -g
 
+### OSX
+
+	brew install arp-scan
+
+### Linux
+
+	sudo apt-get install arp-scan
+
 ## Usage
 
     [kevin@Tardis nodescan]$ node bin/server.js --help
@@ -58,8 +66,7 @@ For RPi, install this in `/etc/systemd/system/`, this will ensure it runs at sta
 ## To Do
 
 * Scan hosts for open ports (easy) and figure out a smart way to put that on the web page (harder)
-* Include localhost info
-* Save/recover network database from file
+* Save/recover network database from file, [having issues reading file back in]
 * Do I need to show the mac addr? Is there a better way to do that?
 * Maybe put a json interface?
 * Turn on/off web interface, then just use json to get info?
@@ -69,6 +76,7 @@ For RPi, install this in `/etc/systemd/system/`, this will ensure it runs at sta
 
 | Version | Date     | Comments |
 |---------|----------|----------|
+| 0.3.0   | 6 Jan 16 | Clean-up and fixes, still have a file error to fix |
 | 0.2.0   | 3 Jan 16 | Clean-up and fixes |
 | 0.1.0   | 1 Jan 16 | Initial commit |
 
