@@ -53,7 +53,7 @@ The main purpose of this is network recon to find and identify hosts.
 
 ## Setup
 
-For RPi, install this in `/etc/systemd/system/`, this will ensure it runs at start up.
+For RPi, install this in `/etc/systemd/system/nodescan.service`, this will ensure it runs at start up.
 
     [Service]
     ExecStart=/usr/local/bin/nodescan
@@ -68,6 +68,12 @@ For RPi, install this in `/etc/systemd/system/`, this will ensure it runs at sta
     [Install]
     WantedBy=multi-user.target
 
+Then do:
+
+    sudo systemctl enable nodescan.service
+    sudo systemctl start nodescan.service
+
+Now you can use `sudo systemctl start|stop|status nodescan.service` to start, stop, or find the current status of the server.
 
 ## To Do
 
