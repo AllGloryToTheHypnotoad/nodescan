@@ -76,6 +76,7 @@ For RPi, install this in `/etc/systemd/system/`, this will ensure it runs at sta
 
 | Version | Date     | Comments |
 |---------|----------|----------|
+| 0.4.0   | 8 Jan 16 | Clean-up and fixes |
 | 0.3.0   | 6 Jan 16 | Clean-up and fixes, still have a file error to fix |
 | 0.2.0   | 3 Jan 16 | Clean-up and fixes |
 | 0.1.0   | 1 Jan 16 | Initial commit |

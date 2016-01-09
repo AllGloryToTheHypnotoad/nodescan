@@ -23,7 +23,7 @@ program
 	.option('-d, --dev [interface]','network interface to use for scan, default: en1', 'en1')
 	.parse(process.argv);
 
-debug('Starting netscan on interface: '+program.dev+' every '+program.update);	
+console.log('Starting nodescan on interface: '+program.dev+' every '+program.update);	
 
 var options = {'dev': program.dev};
 var scan = [];
