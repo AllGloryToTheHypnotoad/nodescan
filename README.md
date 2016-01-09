@@ -20,13 +20,19 @@ The main purpose of this is network recon to find and identify hosts.
 
     npm install -g
 
+### Develop
+
+    git clone https://github.com/walchko/nodescan.git
+    cd nodescan
+    npm link
+
 ### OSX
 
-	brew install arp-scan
+    brew install arp-scan
 
 ### Linux
 
-	sudo apt-get install arp-scan
+    sudo apt-get install arp-scan
 
 ## Usage
 

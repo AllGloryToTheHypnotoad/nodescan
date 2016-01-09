@@ -1,11 +1,11 @@
 [Service]
-ExecStart=/usr/local/bin/nodescan
+ExecStart=/usr/local/bin/nodescan -d eth0
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=nodescan
-User=pi
-Group=pi
+User=root
+Group=root
 Environment=NODE_ENV=production
 
 [Install]
