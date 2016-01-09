@@ -24,6 +24,7 @@ The main purpose of this is network recon to find and identify hosts.
 
     git clone https://github.com/walchko/nodescan.git
     cd nodescan
+    npm install
     npm link
 
 ### OSX
