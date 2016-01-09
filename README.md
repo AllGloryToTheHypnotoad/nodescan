@@ -37,19 +37,20 @@ The main purpose of this is network recon to find and identify hosts.
 
 ## Usage
 
-    [kevin@Tardis nodescan]$ node bin/server.js --help
+    [kevin@Tardis nodescan]$ nodescan -h
 
-      Usage: server nodescan [options]
+      Usage: nodescan nodescan [options]
 
-      Local network scanner
+      Local network scanner with web interface
 
       Options:
 
         -h, --help              output usage information
         -V, --version           output the version number
-        -p, --port <port>       Http server port number, default: 8080
-        -u, --update [seconds]  update time for arp-scan, default: 60 sec
         -d, --dev [interface]   network interface to use for scan, default: en1
+        -l, --loc [location]    save file location, default location: ~
+        -p, --port <port>       Http server port number, default: 8888
+        -u, --update [seconds]  update time for arp-scan, default: 60 sec
 
 
 ## Setup
@@ -57,7 +58,7 @@ The main purpose of this is network recon to find and identify hosts.
 For RPi, install this in `/etc/systemd/system/nodescan.service`, this will ensure it runs at start up.
 
     [Service]
-    ExecStart=/usr/local/bin/nodescan -d eth0
+    ExecStart=/usr/local/bin/nodescan -d eth0 -l /var/run
     Restart=always
     StandardOutput=syslog
     StandardError=syslog
@@ -89,6 +90,7 @@ Now you can use `sudo systemctl start|stop|status nodescan.service` to start, st
 
 | Version | Date     | Comments |
 |---------|----------|----------|
+| 0.6.0   | 9 Jan 16 | Fixed MAC/IP issues with changing addresses, ensure root/sudo privileges, user define file save location |
 | 0.5.0   | 9 Jan 16 | Clean-up and fixes |
 | 0.4.0   | 8 Jan 16 | Clean-up and fixes |
 | 0.3.0   | 6 Jan 16 | Clean-up and fixes, still have a file error to fix |

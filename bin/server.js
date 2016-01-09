@@ -1,26 +1,37 @@
 #!/usr/bin/env node
 
 var debug = require('debug')('kevin:main'); // debugging
-//var chalk = require('chalk');            // colors
-var program = require('commander');        // CLI access
-var os = require('os');                    // OS access
-var http = require('http');                // http-server
-var spawn = require('child_process');
+//var chalk = require('chalk');             // colors
+var program = require('commander');         // CLI access
+var http = require('http');                 // http-server
+
+// local packages
 var localhostInfo = require('../lib/getHostInfo.js');
 var page = require('../lib/page.js');         // render a webpage 
 var arpscan = require('../lib/arpscan.js');   // perform the arp scan
+var is_sudo = require('../lib/is_sudo.js');   // check for root privileges
 var db = require('../lib/database.js').DataBase; // data base 
 
 // grab info from npm package
 var pck = require('../package.json');
 
+// check privileges
+is_sudo().then(function(response){
+	if( response === false ) {
+		console.log('Sorry, you have to have root privileges, use sudo or run as root');
+		console.log(response);
+		process.exit();
+	}
+});
+
 program
 	.version(pck.version)
 	.description(pck.description)
 	.usage(pck.name + ' [options]')
+	.option('-d, --dev [interface]','network interface to use for scan, default: en1', 'en1')
+	.option('-l, --loc [location]','save file location, default location: ~', '~')
 	.option('-p, --port <port>','Http server port number, default: 8888',parseInt,8888)
 	.option('-u, --update [seconds]','update time for arp-scan, default: 60 sec', parseInt, 60)
-	.option('-d, --dev [interface]','network interface to use for scan, default: en1', 'en1')
 	.parse(process.argv);
 
 console.log('Starting nodescan on interface: '+program.dev+' every '+program.update);	
@@ -61,7 +72,7 @@ Flow:
 
 */
 
-var saveFile = '../network_db.json'
+var saveFile = program.loc+'/network_db.json'
 
 function mapNetwork(){	
 	debug('network scan start ...');

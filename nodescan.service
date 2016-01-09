@@ -1,5 +1,5 @@
 [Service]
-ExecStart=/usr/local/bin/nodescan -d eth0
+ExecStart=/usr/local/bin/nodescan -d eth0 -l /var/run
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
