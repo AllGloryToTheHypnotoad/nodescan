@@ -56,13 +56,13 @@ The main purpose of this is network recon to find and identify hosts.
 For RPi, install this in `/etc/systemd/system/nodescan.service`, this will ensure it runs at start up.
 
     [Service]
-    ExecStart=/usr/local/bin/nodescan
+    ExecStart=/usr/local/bin/nodescan -d eth0
     Restart=always
     StandardOutput=syslog
     StandardError=syslog
     SyslogIdentifier=nodescan
-    User=pi
-    Group=pi
+    User=root
+    Group=root
     Environment=NODE_ENV=production
 
     [Install]
