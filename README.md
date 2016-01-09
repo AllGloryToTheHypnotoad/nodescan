@@ -89,6 +89,7 @@ Now you can use `sudo systemctl start|stop|status nodescan.service` to start, st
 
 | Version | Date     | Comments |
 |---------|----------|----------|
+| 0.5.0   | 9 Jan 16 | Clean-up and fixes |
 | 0.4.0   | 8 Jan 16 | Clean-up and fixes |
 | 0.3.0   | 6 Jan 16 | Clean-up and fixes, still have a file error to fix |
 | 0.2.0   | 3 Jan 16 | Clean-up and fixes |
