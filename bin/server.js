@@ -29,12 +29,15 @@ program
 	.description(pck.description)
 	.usage(pck.name + ' [options]')
 	.option('-d, --dev [interface]','network interface to use for scan, default: en1', 'en1')
+	.option('-i, --invert','invert webpage colors for darker screen, default: white background')
 	.option('-l, --loc [location]','save file location, default location: ~', '~')
 	.option('-p, --port <port>','Http server port number, default: 8888',parseInt,8888)
 	.option('-u, --update [seconds]','update time for arp-scan, default: 60 sec', parseInt, 60)
 	.parse(process.argv);
 
 console.log('Starting nodescan on interface: '+program.dev+' every '+program.update);	
+
+// console.log('main pass: '+program.invert);
 
 var options = {'dev': program.dev};
 var scan = [];
@@ -105,7 +108,7 @@ var server = http.createServer(function(req, res){
 	if ( path == '/' ){
 		if (req.method == 'GET') {
 			res.writeHead(200,{'Content-Type': 'text/html'});
-			res.write(page(db.getSortedList()));
+			res.write(page(db.getSortedList(),program.invert));
 // 			debug(db.get());
 			res.end();
 		}
