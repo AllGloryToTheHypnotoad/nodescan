@@ -75,7 +75,10 @@ Then do:
     sudo systemctl enable nodescan.service
     sudo systemctl start nodescan.service
 
-Now you can use `sudo systemctl start|stop|status nodescan.service` to start, stop, or find the current status of the server.
+Now use a browser to go to `<your rpi>:8888` and see the results.
+
+
+You can also use `sudo systemctl start|stop|status nodescan.service` to start, stop, or find the current status of the server.
 
 ## To Do
 
@@ -88,14 +91,15 @@ Now you can use `sudo systemctl start|stop|status nodescan.service` to start, st
 
 ## Change Log 
 
-| Version | Date     | Comments |
-|---------|----------|----------|
-| 0.6.0   | 9 Jan 16 | Fixed MAC/IP issues with changing addresses, ensure root/sudo privileges, user define file save location |
-| 0.5.0   | 9 Jan 16 | Clean-up and fixes |
-| 0.4.0   | 8 Jan 16 | Clean-up and fixes |
-| 0.3.0   | 6 Jan 16 | Clean-up and fixes, still have a file error to fix |
-| 0.2.0   | 3 Jan 16 | Clean-up and fixes |
-| 0.1.0   | 1 Jan 16 | Initial commit |
+| Version | Date      | Comments |
+|---------|-----------|----------|
+| 0.7.0   | 17 Jul 16 | Fixed readme |
+| 0.6.0   |  9 Jan 16 | Fixed MAC/IP issues with changing addresses, ensure root/sudo privileges, user define file save location |
+| 0.5.0   |  9 Jan 16 | Clean-up and fixes |
+| 0.4.0   |  8 Jan 16 | Clean-up and fixes |
+| 0.3.0   |  6 Jan 16 | Clean-up and fixes, still have a file error to fix |
+| 0.2.0   |  3 Jan 16 | Clean-up and fixes |
+| 0.1.0   |  1 Jan 16 | Initial commit |
 
 
 

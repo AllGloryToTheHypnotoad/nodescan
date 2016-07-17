@@ -1,6 +1,6 @@
 {
 	"name": "nodescan",
-	"version": "0.5.0",
+	"version": "0.7.0",
 	"description": "Local network scanner with web interface",
 	"bin": {
 		"nodescan": "./bin/server.js"
