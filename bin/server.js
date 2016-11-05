@@ -7,10 +7,11 @@ var http = require('http');                 // http-server
 
 // local packages
 var localhostInfo = require('../lib/getHostInfo.js');
-var page = require('../lib/page.js');         // render a webpage 
+var page = require('../lib/page.js');         // render a webpage
 var arpscan = require('../lib/arpscan.js');   // perform the arp scan
 var is_sudo = require('../lib/is_sudo.js');   // check for root privileges
-var db = require('../lib/database.js').DataBase; // data base 
+var db = require('../lib/database.js').DataBase; // data base
+var os = require('os'); // need for finding home directory
 
 // grab info from npm package
 var pck = require('../package.json');
@@ -30,12 +31,12 @@ program
 	.usage(pck.name + ' [options]')
 	.option('-d, --dev [interface]','network interface to use for scan, default: en1', 'en1')
 	.option('-i, --invert','invert webpage colors for darker screen, default: white background')
-	.option('-l, --loc [location]','save file location, default location: ~', '~')
+	.option('-l, --loc [location]','save file location, default location: ~', os.homedir()+'/')
 	.option('-p, --port <port>','Http server port number, default: 8888',parseInt,8888)
 	.option('-u, --update [seconds]','update time for arp-scan, default: 60 sec', parseInt, 60)
 	.parse(process.argv);
 
-console.log('Starting nodescan on interface: '+program.dev+' every '+program.update);	
+console.log('Starting nodescan on interface: '+program.dev+' every '+program.update);
 
 // console.log('main pass: '+program.invert);
 
@@ -71,13 +72,13 @@ Flow:
 4. iterate through db and update hostname if needed (should only have to do once)
  - linux uses avahi tools
  - osx uses dig
-5. iterate through db and scan host for open tcp/udp ports 
+5. iterate through db and scan host for open tcp/udp ports
 
 */
 
-var saveFile = program.loc+'/network_db.json'
+var saveFile = program.loc+'network_db.json'
 
-function mapNetwork(){	
+function mapNetwork(){
 	debug('network scan start ...');
 	arpscan(options).then(function(response){
 		scan = response;
@@ -102,9 +103,9 @@ setInterval(function(){
 
 // Simple REST server
 var server = http.createServer(function(req, res){
-    var path = req.url; 
+    var path = req.url;
 //     debug( 'path: ' + path );
-    
+
 	if ( path == '/' ){
 		if (req.method == 'GET') {
 			res.writeHead(200,{'Content-Type': 'text/html'});
@@ -124,11 +125,9 @@ var server = http.createServer(function(req, res){
 		debug("Wrong path " + path)
 		res.writeHead(404, "Not Found", {'Content-Type': 'text/html'});
 		res.write("Wrong path: use http://localhost:"+program.port+"\n");
-		res.end(); 
+		res.end();
 	}
 });
 
 // start web server
 server.listen(program.port);
-
-

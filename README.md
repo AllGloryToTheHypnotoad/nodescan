@@ -8,8 +8,8 @@
 
 [![NPM](https://nodei.co/npm/nodescan.png)](https://nodei.co/npm/nodescan/)
 
-I have a lot of things on my network and I don't even know what they are half the time. 
-This is an alternative to `fing` which is pretty good, but you need to buy a license to 
+I have a lot of things on my network and I don't even know what they are half the time.
+This is an alternative to `fing` which is pretty good, but you need to buy a license to
 get full control.
 
 The main purpose of this is network recon to find and identify hosts.
@@ -89,10 +89,11 @@ You can also use `sudo systemctl start|stop|status nodescan.service` to start, s
 * Turn on/off web interface, then just use json to get info?
 * Add tests
 
-## Change Log 
+## Change Log
 
 | Version | Date      | Comments |
 |---------|-----------|----------|
+| 0.7.1   |  5 Nov 16 | Fixed file error |
 | 0.7.0   | 17 Jul 16 | Fixed readme |
 | 0.6.0   |  9 Jan 16 | Fixed MAC/IP issues with changing addresses, ensure root/sudo privileges, user define file save location |
 | 0.5.0   |  9 Jan 16 | Clean-up and fixes |
@@ -100,6 +101,3 @@ You can also use `sudo systemctl start|stop|status nodescan.service` to start, s
 | 0.3.0   |  6 Jan 16 | Clean-up and fixes, still have a file error to fix |
 | 0.2.0   |  3 Jan 16 | Clean-up and fixes |
 | 0.1.0   |  1 Jan 16 | Initial commit |
-
-
-

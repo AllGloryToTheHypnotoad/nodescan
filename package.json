@@ -1,6 +1,6 @@
 {
 	"name": "nodescan",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"description": "Local network scanner with web interface",
 	"bin": {
 		"nodescan": "./bin/server.js"
@@ -8,7 +8,7 @@
 	"main": "bin/server.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 0",
-		"debug": "sudo DEBUG=* ./bin/server.js",
+		"debug": "sudo DEBUG=* ./bin/server.js -d en0",
 		"start": "sudo ./bin/server.js"
 	},
 	"repository": {

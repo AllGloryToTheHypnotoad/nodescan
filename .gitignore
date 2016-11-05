@@ -1,4 +1,4 @@
 node_modules
 *.log
 old
-network_db.json
+*network_db.json
